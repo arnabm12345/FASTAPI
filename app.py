@@ -6,11 +6,19 @@ import numpy as np
 import pickle
 import pandas as pd
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 # 2. Create the app object
 app = FastAPI()
 # Load the trained model and scaler object from the same pickle file
-
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # You can restrict this to specific origins if needed
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 pickle_in = open("lin_reg_model (1).pkl","rb")
 lin_reg_model=pickle.load(pickle_in)
 
